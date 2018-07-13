@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 
 // 实例化路由
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'history', // 这里使用histroy的目的就是让项目的url里面没有#
   routes
 })
 
