@@ -1,10 +1,16 @@
 import Login from '../components/Login'
+import Home from '../components/Home'
 
 let routes = [
   {
     path: '/login',
-    name: '11',
+    name: '',
     component: Login
+  },
+  {
+    path: '/home',
+    name: '',
+    component: Home
   }
 ]
 
