@@ -1,5 +1,6 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px"
+           class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
@@ -9,55 +10,60 @@
     </el-form-item>
     <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录
+      </el-button>
       <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
 </template>
 <script>
-
-// import NProgress from 'nprogress'
+import { userLogin } from '../api/api'
 export default {
   data () {
     return {
       logining: false,
       ruleForm2: {
-        account: 'admin',
-        checkPass: '123456'
+        account: '张三',
+        checkPass: '123'
       },
       rules2: {
-        account: [
-          { required: true, message: '请输入账号', trigger: 'blur' }
-          // { validator: validaePass }
-        ],
-        checkPass: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
-          // { validator: validaePass2 }
-        ]
+        account: [{
+          required: true, message: '请输入账号', trigger: 'blur'
+        }]
       },
+      checkPass: [{
+        required: true, message: '请输入密码', trigger: 'blur'
+      }],
       checked: true
     }
   },
   methods: {
-    handleReset2 () {
-      this.$refs.ruleForm2.resetFields()
-    },
-    handleSubmit2 (ev) {
+    handleSubmit2 () {
       this.$refs.ruleForm2.validate((valid) => {
         if (valid) {
-          // _this.$router.replace('/table');
           this.logining = true
-          // NProgress.start();
-          // var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass }
+          var loginParams = { userName: this.ruleForm2.account, userPassword: this.ruleForm2.checkPass }
+          userLogin(loginParams).then(result => {
+            this.logining = false
+            debugger
+            let { code, message, data } = result
+            if (code !== 'success') {
+              this.$message({
+                message: message,
+                type: 'error'
+              })
+            } else {
+              sessionStorage.setItem('user', JSON.stringify(data))
+              this.$router.push({ path: '/home' })
+            }
+          })
         } else {
-          console.log('error submit!!')
-          return false
+          console.log('submit error!')
         }
       })
     }
   }
 }
-
 </script>
 <style lang="scss" scoped>
   .login-container {
