@@ -16,5 +16,5 @@ axios.interceptors.response.use(function (config) {
 }, function (error) {
   return Promise.reject(error)
 })
-
+// 登陆请求
 export const userLogin = params => { return axios.post(`sys/userLogin`, qs.stringify(params)).then(res => res.data) }
