@@ -3,12 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
-import routes from './router/index'
+import routes from './router/routes'
 import elementUI from 'element-ui'
-import axios from './api/api-config'
 import 'element-ui/lib/theme-chalk/index.css'
 
-Vue.prototype.$http = axios
 // 加载饿了么UI
 Vue.use(elementUI)
 // 加载路由
@@ -17,6 +15,7 @@ Vue.config.productionTip = false
 
 // 实例化路由
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
