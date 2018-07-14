@@ -45,7 +45,6 @@ export default {
           var loginParams = { userName: this.ruleForm2.account, userPassword: this.ruleForm2.checkPass }
           userLogin(loginParams).then(result => {
             this.logining = false
-            debugger
             let { code, message, data } = result
             if (code !== 'success') {
               this.$message({
