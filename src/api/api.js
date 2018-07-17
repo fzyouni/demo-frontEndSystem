@@ -11,10 +11,16 @@ axios.defaults.headers = {
   'Access-Control-Allow-Origin': '*'
 }
 // axios  响应拦截器
-axios.interceptors.response.use(function (config) {
-  return config
-}, function (error) {
-  return Promise.reject(error)
+axios.interceptors.response.use(response => {
+  return response
+},
+error => {
+  if (error.response) {
+    console.log('请求错误')
+    console.log(error.response.status)
+    this.$router.push('/error')
+  }
+  return Promise.reject(error)// 返回接口返回的错误信息
 })
 // 登陆请求
 export const userLogin = params => { return axios.post(`sys/userLogin`, qs.stringify(params)).then(res => res.data) }
