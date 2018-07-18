@@ -17,7 +17,7 @@
   </el-form>
 </template>
 <script>
-import { userLogin } from '../api/api'
+import API from '../api/api-user'
 export default {
   data () {
     return {
@@ -39,13 +39,13 @@ export default {
   },
   methods: {
     handleSubmit () {
-      debugger
+      let that = this
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.logining = true
           let loginParams = { userName: this.ruleForm.account, userPassword: this.ruleForm.checkPass }
-          userLogin(loginParams).then(result => {
-            this.logining = false
+          API.userLogin(loginParams).then(result => {
+            that.logining = false
             let { code, message, data } = result
             if (code !== 'success') {
               this.$message({
