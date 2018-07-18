@@ -4,7 +4,7 @@
       <img src="../../assets/logo.png" alt="logo" class="header-logo">
       <ul class="header-operations">
         <li>
-          <span class="header-lang is-active">{{user.userName}}</span>
+          <span class="header-lang is-active">登录时间：{{time}}&nbsp;&nbsp;您好：{{user.userName}}</span>
         </li>
         <li>退出系统</li>
       </ul>
@@ -12,8 +12,14 @@
   </div>
 </template>
 <script>
+import {getNowTime} from '../../common/utils'
 export default {
-  props: ['user']
+  props: ['user'],
+  data () {
+    return {
+      time: getNowTime()
+    }
+  }
 }
 </script>
 <style>
